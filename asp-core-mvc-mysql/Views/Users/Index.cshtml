@@ -1,0 +1,74 @@
+@model    List<webAppDemo.Models.Users>
+@{
+    ViewData["Title"] = "Dashboard";
+     Layout = "~/Views/Shared/_Custom.cshtml";
+}
+
+<h3></h3>
+
+<div class="row">
+   @{ if(ViewData["error"]!=null){ <div class="col-sm-12 alert alert-danger">@ViewData["error"]</div> } }
+   
+   <div class="col-sm-12" style="margin-bottom: 10px">
+       <div class="row">
+            <div class="col-sm-3">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a asp-controller="Users"  asp-action="Create" class="btn btn-secondary">Create New</a>
+                    <a id="btn_del" href="#" class="btn btn-success">Delete</a>
+                </div>
+            </div>
+            <div class="col-sm-6">
+
+            </div>
+            <div class="col-sm-3">
+                <form asp-controller="Users" asp-action="Index" method="post" class="form-horizontal" role="form">
+                    <div class="input-group">                      
+                        <input name="searchString" type="text" class="form-control" placeholder="Input group example" aria-label="Input group example" aria-describedby="btnGroupAddon2">
+                        <div class="input-group-prepend">
+                        <div class="input-group-text" id="btnGroupAddon2">  <span data-feather="search"></span></div>
+                        </div>
+                    </div>
+            </form>
+            </div>
+       </div>
+   </div>
+    
+    <div class="col-sm-12 table-responsive-sm">
+       
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                       @if(Model.Count > 0) {<td><input id="chk_all" type="checkbox"></td>}
+                        <th scope="col">Id</th>
+                        <th scope="col">Fisrtname</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        if(Model.Count > 0){
+                            int c=0;
+                            foreach (var item in Model)
+                            {
+                                c++;
+                                <tr>
+                                    <td><input type="checkbox" class="chk" data-value="@item.Id"></td>
+                                    <td>@item.Id</td>
+                                    <td>@item.Fullname</td>
+                                    <td>@item.Uid</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.Created</td>
+                                </tr>
+                            }
+                        }
+                        else{
+                            <tr><td colspan="5" align="center">No data found</td></tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+  
+</div>
